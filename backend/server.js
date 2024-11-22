@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL
 });
 
 
@@ -58,8 +58,8 @@ app.post('/api/users',
 });
 
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-  try {
+const { email, password } = req.body;
+try {
     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     if (!result.rows.length) {
         return res.status(400).json({ error: 'Invalid email' });
@@ -71,9 +71,9 @@ app.post('/api/login', async (req, res) => {
     }
     const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
-  } catch (error) {
+} catch (error) {
     res.status(500).json({ error: 'Error logging in user' });
-  }
+}
 });
 
 app.get('/', (req, res) =>
