@@ -85,6 +85,8 @@ app.get('/', (req, res) =>
 
 
 
+
+
 // async function gptTest() {
 //     try{
 //         const response = await openai.chat.completions.create({
