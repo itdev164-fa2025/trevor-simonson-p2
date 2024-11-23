@@ -2,15 +2,16 @@ import * as React from "react"
 import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import QuizForm from "../components/QuizForm/QuizForm"
-
+import UserProfile from "../components/UserProfile/UserProfile"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
 
+
 const IndexPage = () => (
   <Layout>
-    <QuizForm/>
+    <UserProfile/>
   </Layout>
 )
 

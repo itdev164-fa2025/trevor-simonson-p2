@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const  OpenAI  = require('openai');
 const {check, validationResult} = require('express-validator');
+const auth =require('./middleware/auth');
 require('dotenv').config();
 
-require('dotenv').config();
 
 const app = express();
 
@@ -23,10 +23,10 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 /**
- * @route POST api/users
+ * @route POST api/register
  * @desc Register user
  */
-app.post('/api/users', 
+app.post('/api/register', 
     [
         check('name', 'Please enter your name').not().isEmpty(),
         check('email', 'Please enter valid email').isEmail(),
@@ -57,26 +57,36 @@ app.post('/api/users',
     }
 });
 
-app.post('/api/login', async (req, res) => {
-const { email, password } = req.body;
-try {
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    if (!result.rows.length) {
-        return res.status(400).json({ error: 'Invalid email' });
+app.post('/api/login', 
+    [
+        check('email', 'Please enter valid email').isEmail(),
+        check('password','Please enter password').exists()
+    ],
+    async (req, res) => {
+    const { email, password } = req.body;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors: errors.array()});
     }
-    const user = result.rows[0];
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-        return res.status(400).json({ error: 'Invalid password' });
+
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (!result.rows.length) {
+            return res.status(400).json({ error: 'Invalid email' });
+        }
+        const user = result.rows[0];
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({ error: 'Invalid password' });
+        }
+        const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    } catch (error) {
+        res.status(500).json({ error: 'Error logging in user' });
     }
-    const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
-} catch (error) {
-    res.status(500).json({ error: 'Error logging in user' });
-}
 });
 
-app.get('/', (req, res) =>
+app.get('/', auth, (req, res) =>
     res.send('http get request sent to root api endpoint')
 );
 
