@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { navigate } from '@reach/router';
 
 const Register = () => {
   const { register } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const Register = () => {
 
     try {
       await register(name, email, password);
-      alert('Registration successful');
+      navigate('/');
 
     } catch {
       alert('Registration failed');

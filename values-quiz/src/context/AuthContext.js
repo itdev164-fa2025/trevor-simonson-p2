@@ -11,7 +11,18 @@ const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         const response = await axios.post('http://localhost:5000/api/login', { email, password });
         localStorage.setItem('token', response.data.token);
-        setUser({ email });
+        console.log(response.data.token);
+        setUser({ 
+            id: response.data.user.id, 
+            name: response.data.user.name, 
+            email: response.data.user.email 
+        });
+
+        console.log('Logged in user:', {
+            id: response.data.user.id,
+            name: response.data.user.name,
+            email: response.data.user.email
+        });
     };
 
     const register = async (name, email, password) => {
@@ -30,6 +41,7 @@ const AuthProvider = ({ children }) => {
             const response = await axios.get('http://localhost:5000/api/protected', {
             headers: { Authorization: `Bearer ${token}` },
             });
+
             setUser({ id: response.data.userId });
         } catch {
             logout();

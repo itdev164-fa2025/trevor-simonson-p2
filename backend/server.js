@@ -86,9 +86,34 @@ app.post('/api/login',
     }
 });
 
-app.get('/', auth, (req, res) =>
+const authenticateToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).json({ message: 'Access denied.' });
+
+    jwt.verify(token.split(' ')[1], SECRET_KEY, (err, user) => {
+        if (err) return res.status(403).json({ message: 'Invalid token.' });
+        req.user = user;
+        next();
+    });
+};
+
+/**
+ * @route GET api/protected
+ * @desc Auth user
+ */
+app.get('/api/protected', authenticateToken, (req, res) => {
+    console.log('Protected route accessed:');
+    res.json({ message: 'This is a protected route.'});
+});
+
+
+
+app.get('/', authenticateToken, (req, res) =>
     res.send('http get request sent to root api endpoint')
 );
+
+
+
 
 
 
