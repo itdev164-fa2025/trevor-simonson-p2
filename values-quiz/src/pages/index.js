@@ -1,19 +1,18 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import QuizForm from "../components/QuizForm/QuizForm"
+import React, { useState, useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
 import UserProfile from "../components/UserProfile/UserProfile"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
 
+const IndexPage = () => {
+  console.log("AuthContext:", useContext(AuthContext))
 
-
-const IndexPage = () => (
-  <Layout>
-    <UserProfile/>
-  </Layout>
-)
+  return (
+    <Layout>
+      <UserProfile />
+    </Layout>
+  )
+}
 
 /**
  * Head export to define metadata for the page

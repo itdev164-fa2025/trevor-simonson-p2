@@ -1,19 +1,21 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import QuizForm from '../components/QuizForm/QuizForm';
+import React, { useState, useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
+import QuizForm from "../components/QuizForm/QuizForm"
+import { navigate } from "gatsby"
 
-const Login = () => {
-    const { user } = useContext(AuthContext);
-        console.log(user);
+const Quiz = () => {
+  console.log("AuthContext:", useContext(AuthContext))
+  const { user, loading } = useContext(AuthContext)
 
-        return (
+  if (loading) {
+    return <p>Loading...</p>
+  }
+  return (
+    <>
+      <h1>{user.id}</h1>
+      <QuizForm />
+    </>
+  )
+}
 
-            <QuizForm/>
-            
-        );
-
-        
-
-};
-
-export default Login;
+export default Quiz

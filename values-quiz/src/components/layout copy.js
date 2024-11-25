@@ -31,19 +31,9 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={Gray}>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header />
       <Content>
         <Main m={20}>{children}</Main>
-        <Footer
-          style={{
-            marginTop: `var(--space-5)`,
-            fontSize: `var(--font-sm)`,
-          }}
-        >
-          © {new Date().getFullYear()} &middot; Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </Footer>
       </Content>
     </ThemeProvider>
   )

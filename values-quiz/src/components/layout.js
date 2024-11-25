@@ -1,10 +1,15 @@
-import * as React from "react"
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { useStaticQuery, graphql } from "gatsby"
 import AuthProvider from "../context/AuthContext"
-
 import "./layout.css"
+import Header from './Header/Header'
+import styled, { ThemeProvider } from "styled-components"
+import { Gray } from './themes/Gray'
 
 const Layout = ({ children }) => {
+  const { loading } = useContext(AuthContext); 
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -15,29 +20,24 @@ const Layout = ({ children }) => {
     }
   `)
 
+  
+
+  if (loading) {
+    return (
+      <div>
+        <p>Loading...</p> 
+      </div>
+    );
+  }
+
+
   return (
     <>
       <AuthProvider>
-        
-        <div
-          style={{
-            margin: `0 auto`,
-            maxWidth: `var(--size-content)`,
-            padding: `var(--size-gutter)`,
-          }}
-        >
+        <ThemeProvider theme={Gray}>
+          <Header/>
           <main>{children}</main>
-          <footer
-            style={{
-              marginTop: `var(--space-5)`,
-              fontSize: `var(--font-sm)`,
-            }}
-          >
-            © {new Date().getFullYear()} &middot; Built with
-            {` `}
-            <a href="https://www.gatsbyjs.com">Gatsby</a>
-          </footer>
-        </div>
+        </ThemeProvider>
       </AuthProvider>
     </>
   )
