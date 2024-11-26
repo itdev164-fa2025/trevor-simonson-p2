@@ -37,6 +37,41 @@ const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
+  const submitAnswers = async (user, answers) =>{
+    const token = localStorage.getItem("token");
+    try{
+    const response = await axios.post(
+      "http://localhost:5000/api/submit",
+      { user, answers }, // Request payload
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+          "Content-Type": "application/json", 
+        },
+      }
+      )
+    }catch(error){
+        console.log(error)
+    }
+  }
+
+  const getResults = async () =>{
+    const token = localStorage.getItem("token")
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/results/${user.id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      console.log(response.data);
+      return response.data;
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const verifyToken = async () => {
     const token = localStorage.getItem("token")
     if (token) {
@@ -70,7 +105,17 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        logout,
+        loading,
+        submitAnswers,
+        getResults,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

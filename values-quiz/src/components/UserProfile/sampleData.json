@@ -1,17 +1,14 @@
 {
-    "user_id": "user_12345",
-    "scores": {
-        "Autonomy": 6,
-        "Social Responsibility": 13,
-        "Environmental Consciousness": 6,
-        "Optimism and Worldview": 9,
-        "Spirituality and Transcendence": 12,
-        "Interpersonal Connection": 5
-    },
-    "summary": "The user's responses indicate a strong inclination towards social responsibility and spirituality, suggesting a deep commitment to helping others and finding meaning beyond the physical realm. There is a moderate level of optimism and a balanced approach to autonomy and environmental consciousness. However, interpersonal connections may not be a primary focus.",
-    "aligned_thinker": {
-        "name": "Mahatma Gandhi",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Gandhi_Sept1944.jpg",
-        "alignment_description": "Your values resonate with Mahatma Gandhi's philosophy, emphasizing social responsibility, spiritual growth, and non-violence. Gandhi believed in serving others and finding purpose in transcendent values."
-    }
-}   
+    "result_id": 6,
+    "user_id": 4,
+    "autonomy_score": 1,
+    "social_responsibility_score": 1,
+    "environmental_consciousness_score": 1,
+    "optimism_and_worldview_score": 1,
+    "spirituality_and_transcendence_score": 1,
+    "interpersonal_connection_score": 1,
+    "summary": "The user strongly values autonomy, social responsibility, environmental consciousness, optimism, spirituality, and interpersonal connections in their philosophy.",
+    "thinker_name": "Mahatma Gandhi",
+    "thinker_image_url": "https://example.com/gandhi.jpg",
+    "thinker_alignment_description": "You align with Mahatma Gandhi's philosophy of serving others and finding purpose in transcendent values. Gandhi emphasized the importance of spiritual growth and social responsibility."
+} 

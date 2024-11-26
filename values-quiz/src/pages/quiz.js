@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 import QuizForm from "../components/QuizForm/QuizForm"
 import { navigate } from "gatsby"
+import Layout from "../components/layout"
 
 const Quiz = () => {
   console.log("AuthContext:", useContext(AuthContext))
@@ -11,10 +12,10 @@ const Quiz = () => {
     return <p>Loading...</p>
   }
   return (
-    <>
-      <h1>{user.id}</h1>
+    <Layout>
+      <h1>{user.name}</h1>
       <QuizForm />
-    </>
+    </Layout>
   )
 }
 

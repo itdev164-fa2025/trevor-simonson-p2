@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { navigate } from "@reach/router"
+import Layout from "../components/layout"
 
 const Register = () => {
   console.log("AuthContext:", useContext(AuthContext))
@@ -21,7 +22,7 @@ const Register = () => {
   }
 
   return (
-    <>
+    <Layout>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -40,7 +41,7 @@ const Register = () => {
         />
         <button type="submit">Register</button>
       </form>
-    </>
+    </Layout>
   )
 }
 

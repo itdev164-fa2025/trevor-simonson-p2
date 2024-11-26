@@ -1,0 +1,110 @@
+[
+    {
+      "id": "1",
+      "question": "I believe individuals should have the freedom to make their own choices without interference.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Personal Autonomy"
+    },
+    {
+      "id": "2",
+      "question": "I think that personal success is primarily determined by one's actions and choices.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Personal Autonomy"
+    },
+    {
+      "id": "3",
+      "question": "I value self-discipline and personal growth as core to my life philosophy.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Personal Autonomy"
+    },
+    {
+      "id": "4",
+      "question": "I feel it is my duty to help those less fortunate than myself.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Social Responsibility"
+    },
+    {
+      "id": "5",
+      "question": "I believe that society has a responsibility to ensure basic rights and needs are met for all.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Social Responsibility"
+    },
+    {
+      "id": "6",
+      "question": "I think that individual actions can contribute to positive social change.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Social Responsibility"
+    },
+    {
+      "id": "7",
+      "question": "I believe humans have a moral duty to protect the environment.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Environmental Consciousness"
+    },
+    {
+      "id": "8",
+      "question": "I try to make choices that minimize my environmental impact.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Environmental Consciousness"
+    },
+    {
+      "id": "9",
+      "question": "I think that future generations have a right to a healthy and sustainable planet.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Environmental Consciousness"
+    },
+    {
+      "id": "10",
+      "question": "I believe that humanity is generally progressing towards a better future.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Optimism and Worldview"
+    },
+    {
+      "id": "11",
+      "question": "I try to see the positive side of situations, even when things go wrong.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Optimism and Worldview"
+    },
+    {
+      "id": "12",
+      "question": "I believe that people are fundamentally good and capable of positive change.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Optimism and Worldview"
+    },
+    {
+      "id": "13",
+      "question": "I believe there is a spiritual or transcendent dimension to life.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Spirituality and Transcendence"
+    },
+    {
+      "id": "14",
+      "question": "I feel connected to something larger than myself, whether spiritual, universal, or natural.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Spirituality and Transcendence"
+    },
+    {
+      "id": "15",
+      "question": "I find meaning and purpose in practices or beliefs beyond the physical world.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Spirituality and Transcendence"
+    },
+    {
+      "id": "16",
+      "question": "I believe that close personal relationships are essential to a fulfilling life.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Interpersonal Connection"
+    },
+    {
+      "id": "17",
+      "question": "I think that empathy and understanding are key to building strong relationships.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Interpersonal Connection"
+    },
+    {
+      "id": "18",
+      "question": "I feel that my connections with others shape who I am.",
+      "scale": [1, 2, 3, 4, 5],
+      "area": "Interpersonal Connection"
+    }
+]

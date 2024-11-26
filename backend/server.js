@@ -7,7 +7,130 @@ const OpenAI = require("openai");
 const { check, validationResult } = require("express-validator");
 const auth = require("./middleware/auth");
 require("dotenv").config();
-
+const questions = [
+  {
+    id: "1",
+    question:
+      "I believe individuals should have the freedom to make their own choices without interference.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Personal Autonomy",
+  },
+  {
+    id: "2",
+    question:
+      "I think that personal success is primarily determined by one's actions and choices.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Personal Autonomy",
+  },
+  {
+    id: "3",
+    question:
+      "I value self-discipline and personal growth as core to my life philosophy.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Personal Autonomy",
+  },
+  {
+    id: "4",
+    question: "I feel it is my duty to help those less fortunate than myself.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Social Responsibility",
+  },
+  {
+    id: "5",
+    question:
+      "I believe that society has a responsibility to ensure basic rights and needs are met for all.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Social Responsibility",
+  },
+  {
+    id: "6",
+    question:
+      "I think that individual actions can contribute to positive social change.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Social Responsibility",
+  },
+  {
+    id: "7",
+    question: "I believe humans have a moral duty to protect the environment.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Environmental Consciousness",
+  },
+  {
+    id: "8",
+    question: "I try to make choices that minimize my environmental impact.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Environmental Consciousness",
+  },
+  {
+    id: "9",
+    question:
+      "I think that future generations have a right to a healthy and sustainable planet.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Environmental Consciousness",
+  },
+  {
+    id: "10",
+    question:
+      "I believe that humanity is generally progressing towards a better future.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Optimism and Worldview",
+  },
+  {
+    id: "11",
+    question:
+      "I try to see the positive side of situations, even when things go wrong.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Optimism and Worldview",
+  },
+  {
+    id: "12",
+    question:
+      "I believe that people are fundamentally good and capable of positive change.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Optimism and Worldview",
+  },
+  {
+    id: "13",
+    question:
+      "I believe there is a spiritual or transcendent dimension to life.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Spirituality and Transcendence",
+  },
+  {
+    id: "14",
+    question:
+      "I feel connected to something larger than myself, whether spiritual, universal, or natural.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Spirituality and Transcendence",
+  },
+  {
+    id: "15",
+    question:
+      "I find meaning and purpose in practices or beliefs beyond the physical world.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Spirituality and Transcendence",
+  },
+  {
+    id: "16",
+    question:
+      "I believe that close personal relationships are essential to a fulfilling life.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Interpersonal Connection",
+  },
+  {
+    id: "17",
+    question:
+      "I think that empathy and understanding are key to building strong relationships.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Interpersonal Connection",
+  },
+  {
+    id: "18",
+    question: "I feel that my connections with others shape who I am.",
+    scale: [1, 2, 3, 4, 5],
+    area: "Interpersonal Connection",
+  },
+];
 const app = express();
 
 app.use(express.json());
@@ -126,24 +249,19 @@ app.get("/api/protected", authenticateToken, async (req, res) => {
   }
 });
 
-
-/**
- * @route GET api/submit
- * @desc submit answers
- */
-app.post("/api/submit", authenticateToken, async (req, res) => {
-  try {
-    const { user, results } = req.body;
-    const userId = user.userId;
+const saveResults = async (user, results) => {
+    try {
+    //const { user, results } = req.body;
+    const userId = user;
     const { aligned_thinker, summary, ...scores } = results;
+      console.log(results);
 
-    // Check if the thinker already exists in the database
     let thinker = await pool.query(
       "SELECT * FROM aligned_thinkers WHERE name = $1",
       [aligned_thinker.name]
     );
 
-    // If thinker doesn't exist, insert them
+
     if (!thinker.rows.length) {
       thinker = await pool.query(
         "INSERT INTO aligned_thinkers (name, image_url, alignment_description) VALUES ($1, $2, $3) RETURNING id",
@@ -155,7 +273,7 @@ app.post("/api/submit", authenticateToken, async (req, res) => {
       );
     }
 
-    // Insert quiz results into the database
+    
     const result = await pool.query(
       `INSERT INTO quiz_results 
       (user_id, autonomy_score, social_responsibility_score, environmental_consciousness_score, optimism_and_worldview_score, spirituality_and_transcendence_score, interpersonal_connection_score, summary, aligned_thinker_id) 
@@ -173,38 +291,107 @@ app.post("/api/submit", authenticateToken, async (req, res) => {
       ]
     );
 
-    res.json({
-      results: { id: result.rows[0].id, userId: result.rows[0].user_id },
-    });
+    // res.json({
+    //   results: { id: result.rows[0].id, userId: result.rows[0].user_id },
+    // });
   } catch (error) {
     console.error("Error saving results:", error);
-    res.status(500).json({ error: "Error saving results" });
+    //res.status(500).json({ error: "Error saving results" });
+  }
+}
+
+/**
+ * @route POST api/submit
+ * @desc submit answers
+ */
+app.post("/api/submit", authenticateToken, async (req, res) => {
+    const { user, answers } = req.body;
+    console.log(questions);
+    const payload = {
+      model: "gpt-3.5-turbo", // Use 'gpt-4' if needed
+      messages: [
+        {
+          role: "system",
+          content: `You are a helpful assistant. When provided with a JSON of answers, check them against these questions: ${questions}, and score each question from 1 to 5 based on each area tested. create a summary of the users philosophy and values.
+          then find a like minded philosopher or thinker and provide a name, working image url, and summary of that persons beliefs.
+          
+          Return the results in the following json schema only:
+        {
+          "Autonomy": int,
+          "Social Responsibility": int,
+          "Environmental Consciousness": int,
+          "Optimism and Worldview": int,
+          "Spirituality and Transcendence": int,
+          "Interpersonal Connection": int,
+          "summary": str,
+          "aligned_thinker": {
+            "name": str,
+            "image_url": str,
+            "alignment_description": str
+          }
+        }`,
+        },
+        {
+          role: "user",
+          content: `Here is the JSON of answers: ${JSON.stringify(answers)}`,
+        },
+      ],
+      temperature: 0.7,
+    };
+
+      try{
+          const response = await openai.chat.completions.create(payload);
+          res.json({
+            results: response.choices[0].message.content,
+          });
+          const responseContent = JSON.parse(response.choices[0].message.content);
+          await saveResults(user, responseContent);
+          console.log(response.choices[0].message.content);
+      }catch(error){
+          console.log(error);
+      }
+
+});
+
+app.get("/api/results/:userId", authenticateToken, async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Query to retrieve user results and associated thinker details
+    const resultQuery = `
+        SELECT 
+          qr.id AS result_id,
+          qr.user_id,
+          qr.autonomy_score,
+          qr.social_responsibility_score,
+          qr.environmental_consciousness_score,
+          qr.optimism_and_worldview_score,
+          qr.spirituality_and_transcendence_score,
+          qr.interpersonal_connection_score,
+          qr.summary,
+          at.name AS thinker_name,
+          at.image_url AS thinker_image_url,
+          at.alignment_description AS thinker_description
+        FROM quiz_results qr
+        LEFT JOIN aligned_thinkers at ON qr.aligned_thinker_id = at.id
+        WHERE qr.user_id = $1
+        ORDER BY qr.id DESC
+        LIMIT 1; 
+      `;
+
+    const results = await pool.query(resultQuery, [userId]);
+
+    if (results.rows.length === 0) {
+      return res.status(404).json({ error: "Results not found" });
+    }
+
+    res.json(results.rows[0]); // Return the result
+  } catch (error) {
+    console.error("Error retrieving user results:", error);
+    res.status(500).json({ error: "Failed to retrieve user results" });
   }
 });
 
-// async function gptTest() {
-//     try{
-//         const response = await openai.chat.completions.create({
-//             messages: [{ role: 'user', content: 'Say this is a test' }],
-//             model: 'gpt-4o-mini'
-//         });
-//         console.log(response.choices[0].message);
-//     }catch(error){
-//         console.log(error);
-//     }
-// }
 
-// gptTest();
-
-// async function getPgVersion() {
-//   const client = await pool.connect();
-//   try {
-//     const result = await client.query('SELECT version()');
-//     console.log(result.rows[0]);
-//   } finally {
-//     client.release();
-//   }
-// }
-// getPgVersion();
 
 app.listen(5000, () => console.log("Server running on http://localhost:5000"));

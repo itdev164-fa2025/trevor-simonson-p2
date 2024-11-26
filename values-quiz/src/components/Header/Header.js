@@ -50,12 +50,14 @@ const Header = () => {
               <StyledButton onClick={logout}>Logout</StyledButton>
             </>
           ) : (
-            <StyledButton
-              as={Link}
-              to="/login"
-            >
-              Login
-            </StyledButton>
+            <>
+              <StyledButton as={Link} to="/login">
+                Login
+              </StyledButton>
+              <StyledButton as={Link} to="/register">
+                Register
+              </StyledButton>
+            </>
           )}
         </Flex>
       </Flex>
