@@ -127,7 +127,7 @@ const UserProfile = () => {
             {userData.thinker_name}
           </Heading>
           <Text as="p" fontSize={2} mb={3} color="text">
-            {userData.thinker_alignment_description}
+            {userData.thinker_description}
           </Text>
         </AlignedThinkerCard>
       </ProfileContainer>

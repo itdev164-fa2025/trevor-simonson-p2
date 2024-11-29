@@ -1,14 +1,14 @@
 {
     "result_id": 6,
     "user_id": 4,
-    "autonomy_score": 1,
-    "social_responsibility_score": 1,
-    "environmental_consciousness_score": 1,
+    "autonomy_score": 5,
+    "social_responsibility_score": 4,
+    "environmental_consciousness_score": 3,
     "optimism_and_worldview_score": 1,
-    "spirituality_and_transcendence_score": 1,
-    "interpersonal_connection_score": 1,
+    "spirituality_and_transcendence_score": 5,
+    "interpersonal_connection_score": 4,
     "summary": "The user strongly values autonomy, social responsibility, environmental consciousness, optimism, spirituality, and interpersonal connections in their philosophy.",
     "thinker_name": "Mahatma Gandhi",
-    "thinker_image_url": "https://example.com/gandhi.jpg",
+    "thinker_image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Mahatma_Gandhi_photo.jpg",
     "thinker_alignment_description": "You align with Mahatma Gandhi's philosophy of serving others and finding purpose in transcendent values. Gandhi emphasized the importance of spiritual growth and social responsibility."
 } 

@@ -312,8 +312,11 @@ app.post("/api/submit", authenticateToken, async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant. When provided with a JSON of answers, check them against these questions: ${questions}, and score each question from 1 to 5 based on each area tested. create a summary of the users philosophy and values.
-          then find a like minded philosopher or thinker and provide a name, working image url, and summary of that persons beliefs.
+          content: `You are a helpful assistant. When provided with a JSON of answers, check them against these questions: 
+          ${questions}
+          
+          , and score each question from by adding the totals of questions answered. create a summary of the users philosophy and values.
+          then find a like minded philosopher or thinker and provide a name, an actual live working free use image url, and summary of that persons beliefs.
           
           Return the results in the following json schema only:
         {

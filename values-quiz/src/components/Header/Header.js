@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import * as React from 'react';
+import { useContext } from "react";
 import { Link } from 'gatsby';
 import { AuthContext } from '../../context/AuthContext';
-import { Box, Button, Flex, Text } from 'rebass';
+import { Button, Flex, Text } from 'rebass';
 import styled from "styled-components"
+import { LogoutButton } from '../Button';
+import { ThemeConsumer } from "styled-components"
 
 const StyledButton = styled(Button)`
     margin: 0 10px;
@@ -19,35 +22,42 @@ const StyledButton = styled(Button)`
     
 
 `
+const Image = styled.img`
+  max-height: 150px;
+  margin: 0;
+`
+const StyledHeader = styled.header`
+  margin: 0 auto;
+  padding: var(--space-2) var(--size-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: ${({ theme }) => theme.variants.header.primary.backgroundColor};
+  color: ${({ theme }) => theme.variants.header.primary.color};
+`
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext);
 
     return (
-      <Flex
-        as="nav"
-        px={4}
-        py={3}
-        bg="primary"
-        color="black"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Text as="h1" fontSize={5} fontWeight="bold">
-          Philosophy Quiz
-        </Text>
+      <StyledHeader>
+          <ThemeConsumer>
+            {theme => <Image src={theme.images.mainHeaderImage} />}
+          </ThemeConsumer>
+          <Text as="h1" fontSize={5} fontWeight="bold">
+            Philosophy Quiz
+          </Text>
 
         <Flex>
-          <StyledButton as={Link} to="/quiz">
-            Quiz
-          </StyledButton>
-
           {user ? (
             <>
+              <StyledButton as={Link} to="/quiz">
+                Quiz
+              </StyledButton>
               <StyledButton as={Link} to="/profile">
                 Profile
               </StyledButton>
-              <StyledButton onClick={logout}>Logout</StyledButton>
+              <LogoutButton onClick={logout} />
             </>
           ) : (
             <>
@@ -60,7 +70,7 @@ const Header = () => {
             </>
           )}
         </Flex>
-      </Flex>
+      </StyledHeader>
     )
 };
 

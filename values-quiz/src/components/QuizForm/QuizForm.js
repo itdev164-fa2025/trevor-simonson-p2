@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Box, Button, Text} from 'rebass';
 import quizData from './quizData.json'; 
 import { AuthContext } from '../../context/AuthContext';
-
+import {navigate} from 'gatsby'
 import styled from "styled-components"
 
 const StyledButton = styled(Button)`
@@ -30,7 +30,8 @@ const QuizForm = () => {
 
     const handleSubmit = async (userId) => {
         console.log('User Answers:', answers);
-        submitAnswers(userId, answers)
+        submitAnswers(userId, answers);
+        navigate('/profile');
         
     };
 

@@ -5,8 +5,14 @@ import AuthProvider from "../context/AuthContext"
 import "./layout.css"
 import Header from './Header/Header'
 import styled, { ThemeProvider } from "styled-components"
-import { Gray } from './themes/Gray'
+import { Baller } from "./themes/Baller"
 
+
+const Content = styled.div`
+    margin: 0 auto;
+    max-width: var(--size-content);
+    padding: var(--size-gutter);
+  `
 const Layout = ({ children }) => {
   const { loading } = useContext(AuthContext); 
 
@@ -32,14 +38,15 @@ const Layout = ({ children }) => {
 
 
   return (
-    <>
       <AuthProvider>
-        <ThemeProvider theme={Gray}>
-          <Header/>
-          <main>{children}</main>
+        <ThemeProvider theme={Baller}>
+          <Content>
+            <Header />
+            <main>{children}</main>
+          </Content>
         </ThemeProvider>
       </AuthProvider>
-    </>
+
   )
 }
 
