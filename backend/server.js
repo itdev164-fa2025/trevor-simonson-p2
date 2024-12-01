@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const { Pool } = require("pg");
 const OpenAI = require("openai");
 const { check, validationResult } = require("express-validator");
-const auth = require("./middleware/auth");
 require("dotenv").config();
 const questions = [
   {

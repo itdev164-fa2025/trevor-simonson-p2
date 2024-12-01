@@ -41,12 +41,16 @@ const Header = () => {
 
     return (
       <StyledHeader>
-          <ThemeConsumer>
-            {theme => <Image src={theme.images.mainHeaderImage} />}
-          </ThemeConsumer>
-          <Text as="h1" fontSize={5} fontWeight="bold">
-            Philosophy Quiz
-          </Text>
+        <ThemeConsumer>
+          {theme => (
+            <Link to='/'>
+              <Image src={theme.images.mainHeaderImage} />
+            </Link>
+          )}
+        </ThemeConsumer>
+        <Text as="h1" fontSize={5} fontWeight="bold">
+          Philosophy Quiz
+        </Text>
 
         <Flex>
           {user ? (
