@@ -38,37 +38,39 @@ const QuizForm = () => {
     const handleAnswerChange = (questionId, value) => {
         setAnswers({ ...answers, [questionId]: value });
     };
-
+    var questionNumber = 1;
 
     return (
-        <StyledBox>
-            {quizData.map(q => (
-                <Box key={q.id} mb={3}>
-                <Text>{q.question}</Text>
-                <Box>
-                    {[1, 2, 3, 4, 5].map(value => (
-                    <label key={value} style={{ marginRight: "15px" }}>
-                        <input
-                        type="radio"
-                        name={`question-${q.id}`}
-                        value={value}
-                        checked={answers[q.id] === value}
-                        onChange={() => handleAnswerChange(q.id, value)}
-                        />
-                        {value}
-                    </label>
-                    ))}
-                </Box>
-                </Box>
-            ))}
-            <StyledButton
-                mt={3}
-                color="primary"
-                onClick={()=>handleSubmit(user.id)}
-            >
-                Submit
-            </StyledButton>
-        </StyledBox>
+      <StyledBox>
+        {quizData.map(q => (
+          <Box key={q.id} mb={3}>
+            <Text>{`${questionNumber++}. ${q.question}` }</Text>
+            <Box>
+              {[1, 2, 3, 4, 5].map(value => (
+                <label key={value} style={{ marginRight: "15px" }}>
+                  <input
+                    type="radio"
+                    name={`question-${q.id}`}
+                    value={value}
+                    checked={answers[q.id] === value}
+                    onChange={() => handleAnswerChange(q.id, value)}
+                  />
+                  {value}
+                  
+                </label>
+                
+              ))}
+            </Box>
+          </Box>
+        ))}
+        <StyledButton
+          mt={3}
+          color="primary"
+          onClick={() => handleSubmit(user.id)}
+        >
+          Submit
+        </StyledButton>
+      </StyledBox>
     )
 };
 

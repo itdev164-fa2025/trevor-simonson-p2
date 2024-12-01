@@ -13,7 +13,10 @@ const Quiz = () => {
   }
   return (
     <Layout>
-      <h1>{user.name}</h1>
+      <p>
+        Please respond to each question from 1-5. 1 meaning you
+        strongly disagree, 5 meaning strongly agree.
+      </p>
       <QuizForm />
     </Layout>
   )

@@ -49,22 +49,22 @@ const AlignedThinkerCard = styled(Card)`
 
 const UserProfile = () => {
     const { getResults, user, loading } = useContext(AuthContext);
-  const [userData, setUserData] = useState(null)
+    const [userData, setUserData] = useState(null)
 
-  useEffect(() => {
-    const fetchResults = async () => {
-      const results = await getResults()
-      if (results) {
-        setUserData(results)
+    useEffect(() => {
+      const fetchResults = async () => {
+        const results = await getResults()
+        if (results) {
+          setUserData(results)
+        }
       }
+
+      fetchResults()
+    }, [getResults])
+
+    if (loading || !userData) {
+      return <p>Loading...</p>
     }
-
-    fetchResults()
-  }, [getResults])
-
-  if (loading || !userData) {
-    return <p>Loading...</p>
-  }
     const scores = [
       userData["autonomy_score"],
       userData["social_responsibility_score"],
@@ -97,7 +97,7 @@ const UserProfile = () => {
     };
 
 
-
+    try{
     return (
       <ProfileContainer>
         <Heading as="h1" fontSize={[4, 5]} color="primary">
@@ -147,7 +147,9 @@ const UserProfile = () => {
           </Text>
         </AlignedThinkerCard>
       </ProfileContainer>
-    )
+    )}catch{
+      return<p></p>
+    }
 };
 
 export default UserProfile;
