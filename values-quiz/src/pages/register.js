@@ -39,18 +39,21 @@ const Register = () => {
           <Box
             as="input"
             type="text"
+            mb={1}
             placeholder="Name"
             onChange={e => setName(e.target.value)}
           />
           <Box
             as="input"
             type="email"
+            mb={1}
             placeholder="Email"
             onChange={e => setEmail(e.target.value)}
           />
           <Box
             as="input"
             type="password"
+            mb={1}
             placeholder="Password"
             onChange={e => setPassword(e.target.value)}
           />

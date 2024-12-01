@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
     text-align: center;
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: white;
     background-color: gray;
     border-radius: 10px;
     
@@ -61,7 +61,7 @@ const Header = () => {
               <StyledButton as={Link} to="/profile">
                 Profile
               </StyledButton>
-              <LogoutButton onClick={logout} />
+              <LogoutButton onClick={logout} variant='contrast' size={45} />
             </>
           ) : (
             <>

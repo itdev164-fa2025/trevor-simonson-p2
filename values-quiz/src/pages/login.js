@@ -36,12 +36,14 @@ const Login = () => {
       <StyledForm onSubmit={handleSubmit}>
         <Flex flexDirection={"column"}>
           <Box
+            mb={1}
             as="input"
             type="email"
             placeholder="Email"
             onChange={e => setEmail(e.target.value)}
           />
           <Box
+            mb={1}
             as="input"
             type="password"
             placeholder="Password"

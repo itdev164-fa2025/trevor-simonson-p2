@@ -305,9 +305,8 @@ const saveResults = async (user, results) => {
  */
 app.post("/api/submit", authenticateToken, async (req, res) => {
     const { user, answers } = req.body;
-    console.log(questions);
     const payload = {
-      model: "gpt-3.5-turbo", // Use 'gpt-4' if needed
+      model: "gpt-4o", 
       messages: [
         {
           role: "system",
@@ -316,7 +315,7 @@ app.post("/api/submit", authenticateToken, async (req, res) => {
           
           , and score each question from by adding the totals of questions answered. create a summary of the users philosophy and values.
           then find a like minded philosopher or thinker and provide a name, an actual live working free use image url, and summary of that persons beliefs.
-          
+          Do not give an explanation. Ony provide json ready for parsing.
           Return the results in the following json schema only:
         {
           "Autonomy": int,
@@ -346,6 +345,7 @@ app.post("/api/submit", authenticateToken, async (req, res) => {
           res.json({
             results: response.choices[0].message.content,
           });
+          console.log(response.choices[0].message.content);
           const responseContent = JSON.parse(response.choices[0].message.content);
           await saveResults(user, responseContent);
           console.log(response.choices[0].message.content);

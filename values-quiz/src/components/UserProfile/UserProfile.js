@@ -93,6 +93,7 @@ const UserProfile = () => {
             pointBackgroundColor: 'rgba(76, 175, 80, 1)',
         },
         ],
+        
     };
 
 
@@ -107,7 +108,22 @@ const UserProfile = () => {
         </Text>
 
         <ChartContainer>
-          <Radar data={chartData} options={{ maintainAspectRatio: true }} />
+          <Radar
+            data={chartData}
+            options={{
+              maintainAspectRatio: true,
+              scale: {
+                r: {
+                  beginAtZero: true,
+                  max: 5,
+                  min: 0,
+                },
+                ticks: {
+                  stepSize: 1,
+                },
+              },
+            }}
+          />
         </ChartContainer>
 
         <AlignedThinkerCard mt={2}>
